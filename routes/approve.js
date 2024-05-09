@@ -3,17 +3,6 @@ const router = express.Router();
 
 const shopSchema = require('../models/shop');
 
-function existingMiddleware(req, res, next) {
-  // ตรวจสอบสิทธิ์ Admin หรือไม่
-  if (req.auth && req.auth.role === 'Admin') {
-    // ถ้ามีสิทธิ์ Admin ให้ไปยัง middleware ถัดไป
-    return next();
-  } else {
-    // ถ้าไม่มีสิทธิ์ Admin ให้ส่งข้อความแจ้งเตือนและหยุดการทำงาน
-    return res.status(403).send({ message: "ไม่มีสิทธิ์เข้าใช้งาน" });
-  }
-}
-
 router.put("/:id", async function (req, res, next) {
   try {
     let { username, password, firstName, lastName, email, role, token, status } = req.body;
